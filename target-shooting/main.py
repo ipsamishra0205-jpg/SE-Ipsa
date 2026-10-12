@@ -1,9 +1,12 @@
+
 """
-Target Shooting (Lab Starter)
+Target Shooting (Lab 4)
 
-Run with:  python3 main.py
+Run with: python3 main.py
 
-Click on targets to hit them.
+Click moving targets to score points.
+Each round lasts 30 seconds.
+Press R to restart after time runs out.
 """
 
 import pygame
@@ -21,12 +24,18 @@ def main():
 
     engine = GameEngine()
     running = True
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 engine.handle_click(event.pos)
+
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r and engine.game_over:
+                    engine.restart()
 
         engine.update()
         engine.draw(screen, font)
